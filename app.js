@@ -4,11 +4,11 @@ function onReady () {
 
 
   let toDos = [];
-  let toDosStr = JSON.stringify(toDos);
 
-
-  if (localStorage !== null){
-    localStorage.getItem(JSON.parse(toDosStr))
+  if (localStorage.getItem("toDoData")){
+    toDos = JSON.parse(localStorage.getItem("toDoData"));
+  } else {
+    toDos = [];
   }
 
   //State
@@ -33,13 +33,13 @@ function onReady () {
   //UI
   function renderTheUI(){
     const TODO_LIST = document.getElementById("toDoList");
-    const CHECKBOX = document.createElement('input');
-    CHECKBOX.type = "checkbox";
+
     TODO_LIST.textContent = "";
 
     toDos.forEach(function(toDo){
       const NEW_LI = document.createElement('li');
-
+      const CHECKBOX = document.createElement('input');
+      CHECKBOX.type = "checkbox";
       const DELETE_BTN = document.createElement('button');
       DELETE_BTN.textContent = "Delete!";
 
@@ -63,19 +63,22 @@ function onReady () {
     ADD_TODO_FORM.addEventListener("submit", event =>{
       event.preventDefault();
       createNewToDo();
+    });
+
 
     function isComplete(){
       toDos.complete = !toDos.complete;
-      //console.log(JSON.stringify(toDos))
-      return toDos;
+        return toDos;
     }
 
-    //Event Handler for Checkbox
-    CHECKBOX.onclick = function() {
+    document.createElement('input').onclick = function() {
       isComplete();
     }
-    localStorage.setItem("toDoStr", toDosStr);
-    });
+
+    //Storing data to localStorage
+    let toDosStr = JSON.stringify(toDos);
+    localStorage.setItem("toDoData", toDosStr);
+
   }
     renderTheUI();
 }
