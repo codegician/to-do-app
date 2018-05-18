@@ -6,7 +6,9 @@ function onReady () {
   let toDos = [];
 
   if (localStorage.getItem("toDoData")){
+    //console.log(localStorage.getItem("toDoData"))
     toDos = JSON.parse(localStorage.getItem("toDoData"))
+    //console.log(toDos)
   } else {
     toDos = [];
   }
@@ -40,6 +42,7 @@ function onReady () {
       const NEW_LI = document.createElement('li');
       const CHECKBOX = document.createElement('input');
       CHECKBOX.type = "checkbox";
+      CHECKBOX.checked = toDo.complete;
       const DELETE_BTN = document.createElement('button');
       DELETE_BTN.textContent = "Delete!";
 
@@ -57,14 +60,14 @@ function onReady () {
       });
 
       function isComplete(){
-        toDos.complete = !toDos.complete;
-        return toDos;
+        //console.log(toDos);
+        toDo.complete = !toDo.complete;
+        renderTheUI();
       }
 
       CHECKBOX.onclick = function(){
         isComplete();
       }
-
     });
 
     //Event Listener
@@ -77,7 +80,6 @@ function onReady () {
     //Storing data to localStorage
     let toDoStr = JSON.stringify(toDos);
     localStorage.setItem("toDoData", toDoStr);
-
   }
     renderTheUI();
 }
