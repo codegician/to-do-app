@@ -6,7 +6,7 @@ function onReady () {
   let toDos = [];
 
   if (localStorage.getItem("toDoData")){
-    toDos = JSON.parse(localStorage.getItem("toDoData"));
+    toDos = JSON.parse(localStorage.getItem("toDoData"))
   } else {
     toDos = [];
   }
@@ -56,6 +56,15 @@ function onReady () {
       renderTheUI();
       });
 
+      function isComplete(){
+        toDos.complete = !toDos.complete;
+        return toDos;
+      }
+
+      CHECKBOX.onclick = function(){
+        isComplete();
+      }
+
     });
 
     //Event Listener
@@ -65,19 +74,9 @@ function onReady () {
       createNewToDo();
     });
 
-
-    function isComplete(){
-      toDos.complete = !toDos.complete;
-        return toDos;
-    }
-
-    document.createElement('input').onclick = function() {
-      isComplete();
-    }
-
     //Storing data to localStorage
-    let toDosStr = JSON.stringify(toDos);
-    localStorage.setItem("toDoData", toDosStr);
+    let toDoStr = JSON.stringify(toDos);
+    localStorage.setItem("toDoData", toDoStr);
 
   }
     renderTheUI();
